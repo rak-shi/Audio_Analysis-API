@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<<<<<<< HEAD1
 # MemoTag Speech Intelligence API
 
 ## Run Locally
