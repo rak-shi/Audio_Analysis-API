@@ -1,6 +1,5 @@
 fastapi
 uvicorn
 numpy
+scipy
 librosa
-pydantic
-typing-extensions
