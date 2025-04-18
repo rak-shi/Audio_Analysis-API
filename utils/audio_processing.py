@@ -1,18 +1,22 @@
 import numpy as np
 import librosa
+import os
 
 def extract_features_and_score(file_paths):
     features = []
 
     for path in file_paths:
-        y, sr = librosa.load(path, sr=None)
+        try:
+            y, sr = librosa.load(path, sr=None)
+        except Exception as e:
+            raise ValueError(f"Error loading file {path}: {str(e)}")
 
         mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
         zcr = librosa.feature.zero_crossing_rate(y)
         rms = librosa.feature.rms(y=y)
 
         avg_features = {
-            "file": path.split("\\")[-1],
+            "file": os.path.basename(path),
             "mfcc_mean": float(np.mean(mfcc)),
             "zcr_mean": float(np.mean(zcr)),
             "rms_mean": float(np.mean(rms)),

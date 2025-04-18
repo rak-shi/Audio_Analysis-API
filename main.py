@@ -29,7 +29,14 @@ async def analyze_audio(files: List[UploadFile] = File(...)):
             shutil.copyfileobj(file.file, buffer)
         file_paths.append(file_path)
 
-    result = extract_features_and_score(file_paths)
+    try:
+        result = extract_features_and_score(file_paths)
+    except Exception as e:
+        # Handle unexpected errors
+        return JSONResponse(
+            content={"error": str(e)},
+            status_code=500
+        )
 
     # Clean up uploaded files
     for path in file_paths:
